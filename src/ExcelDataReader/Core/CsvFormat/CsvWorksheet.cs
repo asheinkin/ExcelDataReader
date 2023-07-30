@@ -43,6 +43,10 @@ namespace ExcelDataReader.Core.CsvFormat
 
         public string VisibleState => null;
 
+        public int ActiveSheet => 0;
+
+        public bool IsActiveSheet => true;
+
         public HeaderFooter HeaderFooter => null;
 
         public CellRange[] MergeCells => null;

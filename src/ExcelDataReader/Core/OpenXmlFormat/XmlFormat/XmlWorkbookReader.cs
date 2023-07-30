@@ -73,6 +73,31 @@ namespace ExcelDataReader.Core.OpenXmlFormat.XmlFormat
                         }
                     }
                 }
+
+                else if (Reader.IsStartElement("bookViews", ProperNamespaces.NsSpreadsheetMl))
+                {
+                    if (!XmlReaderHelper.ReadFirstContent(Reader))
+                    {
+                        continue;
+                    }
+
+                    while (!Reader.EOF)
+                    {
+                        if (Reader.IsStartElement("workbookView", ProperNamespaces.NsSpreadsheetMl))
+                        {
+                            string activeTab = Reader.GetAttribute("activeTab");
+                            int result = -1;
+                            int.TryParse(activeTab, out result);
+                            yield return new WorkbookActRecord(result);
+                            Reader.Skip();
+                        }
+                        else if (!XmlReaderHelper.SkipContent(Reader))
+                        {
+                            break;
+                        }
+                    }
+
+                }
                 else if (!XmlReaderHelper.SkipContent(Reader))
                 {
                     yield break;

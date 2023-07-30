@@ -277,7 +277,7 @@ namespace TestApp
                 sheetCombo.DataSource = tablenames;
 
                 if (tablenames.Count > 0)
-                    sheetCombo.SelectedIndex = 0;
+                    sheetCombo.SelectedIndex = reader.ActiveSheet;
             }
             catch (Exception ex) 
             {

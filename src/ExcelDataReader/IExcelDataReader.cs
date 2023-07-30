@@ -23,6 +23,16 @@ namespace ExcelDataReader
         string VisibleState { get; }
 
         /// <summary>
+        /// Gets the active sheet.
+        /// </summary>
+        int ActiveSheet { get; }
+
+        /// <summary>
+        /// Gets the activity of worksheet.
+        /// </summary>       
+        bool IsActiveSheet { get; }
+
+        /// <summary>
         /// Gets the sheet header and footer -or- <see langword="null"/> if none set.
         /// </summary>
         HeaderFooter HeaderFooter { get; }

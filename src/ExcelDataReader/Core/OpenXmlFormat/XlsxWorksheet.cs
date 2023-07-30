@@ -93,6 +93,8 @@ namespace ExcelDataReader.Core.OpenXmlFormat
 
         public string VisibleState { get; }
 
+        public bool IsActiveSheet { get; }
+
         public HeaderFooter HeaderFooter { get; }
 
         public double DefaultRowHeight { get; }

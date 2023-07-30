@@ -24,6 +24,8 @@ namespace ExcelDataReader.Core.OpenXmlFormat
 
         public int ResultsCount => Sheets?.Count ?? -1;
 
+        public int ActiveSheet { get; private set; }
+
         public IEnumerable<XlsxWorksheet> ReadWorksheets()
         {
             foreach (var sheet in Sheets)
@@ -47,6 +49,10 @@ namespace ExcelDataReader.Core.OpenXmlFormat
                     case SheetRecord sheet:
                         Sheets.Add(sheet);
                         break;
+                    case WorkbookActRecord activeSheet:
+                        ActiveSheet = activeSheet.ActiveSheet;
+                        break;
+
                 }
             }
         }

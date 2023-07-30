@@ -14,6 +14,8 @@ namespace ExcelDataReader.Core
 
         IEnumerable<TWorksheet> ReadWorksheets();
 
+        int ActiveSheet { get; }
+
         NumberFormatString GetNumberFormatString(int index);
     }
 }

@@ -80,6 +80,8 @@ namespace ExcelDataReader.Core.BinaryFormat
 
         public int ResultsCount => Sheets?.Count ?? -1;
 
+        public int ActiveSheet { get; private set; }
+
         public static bool IsRawBiffStream(byte[] bytes)
         {
             if (bytes.Length < 8)
@@ -206,10 +208,14 @@ namespace ExcelDataReader.Core.BinaryFormat
                         ExtSST = rec;
                         break;
 
+                    case XlsBiffRecord _ when rec.Id == BIFFRECORDTYPE.WINDOW1:
+                        ActiveSheet = rec.ReadInt16(10);
+                        break;
+
                     // case BIFFRECORDTYPE.PROTECT:
                     // case BIFFRECORDTYPE.PROT4REVPASSWORD:
-                        // IsProtected
-                        // break;
+                    // IsProtected
+                    // break;
                     // case BIFFRECORDTYPE.PASSWORD:
                     default:
                         break;

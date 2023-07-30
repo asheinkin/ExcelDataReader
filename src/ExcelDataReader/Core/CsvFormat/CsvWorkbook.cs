@@ -18,6 +18,8 @@ namespace ExcelDataReader.Core.CsvFormat
 
         public int ResultsCount => 1;
 
+        public int ActiveSheet => 0;
+
         public Stream Stream { get; }
 
         public Encoding Encoding { get; }

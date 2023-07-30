@@ -358,5 +358,19 @@ namespace ExcelDataReader.Tests
                 });
             }
         }
+
+        [Test]
+        public void GitIssue642_ActiveSheet()
+        {
+         
+            using var reader = ExcelReaderFactory.CreateCsvReader(Configuration.GetTestWorkbook("csv\\MOCK_DATA.csv"));
+            var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration()
+            {
+                FilterSheet = (tableReader, sheetIndex) =>  tableReader.IsActiveSheet
+            }
+            );
+            Assert.That(reader.ActiveSheet, Is.EqualTo(0));
+            Assert.That(dataSet.Tables.Count, Is.EqualTo(1));
+        }
     }
 }

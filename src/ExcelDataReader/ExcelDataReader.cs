@@ -30,6 +30,12 @@ namespace ExcelDataReader
 
         public string VisibleState => _worksheetIterator?.Current?.VisibleState;
 
+        private int _idx = 0;
+
+        public int ActiveSheet => this.Workbook.ActiveSheet;
+
+        public bool IsActiveSheet => _idx == this.Workbook.ActiveSheet;
+
         public HeaderFooter HeaderFooter => _worksheetIterator?.Current?.HeaderFooter;
 
         // We shouldn't expose the internal array here. 
@@ -203,6 +209,8 @@ namespace ExcelDataReader
             _worksheetIterator = null;
             _rowIterator = null;
 
+            _idx = 0;
+
             ResetSheetData();
 
             if (Workbook != null)
@@ -253,6 +261,9 @@ namespace ExcelDataReader
             }
 
             _rowIterator = _worksheetIterator.Current.ReadRows().GetEnumerator();
+
+            _idx++;
+
             return true;
         }
 

@@ -392,5 +392,30 @@ namespace ExcelDataReader.Tests
             Assert.That(dataSet.Tables[0].Rows[1].ItemArray[0], Is.EqualTo("text"));
             Assert.That(dataSet.Tables[0].Rows[2].ItemArray[0], Is.EqualTo("text    text"));
         }
+
+        [Test]
+        public void GitIssue642_ActiveSheet()
+        {
+            {
+                using var reader = OpenReader("Test_git_issue_642");
+                var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration()
+                {
+                    FilterSheet = (tableReader, sheetIndex) => tableReader.IsActiveSheet
+                }
+                );
+                Assert.That(reader.ActiveSheet, Is.EqualTo(5));
+                Assert.That(dataSet.Tables[0].TableName, Is.EqualTo("List6"));
+            }
+            {
+                using var reader = OpenReader("Test_git_issue_642onesheet");
+                var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration()
+                {
+                    FilterSheet = (tableReader, sheetIndex) => tableReader.IsActiveSheet
+                }
+                );
+                Assert.That(reader.ActiveSheet, Is.EqualTo(0));
+                Assert.That(dataSet.Tables[0].TableName, Is.EqualTo("List1"));
+            }
+        }
     }
 }
